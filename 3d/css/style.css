@@ -1,0 +1,172 @@
+body,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body {
+  max-width: 100%;
+  height: auto;
+  background-color: powderblue;
+}
+li {
+  list-style: none;
+}
+.box {
+  width: 200px;
+  height: 200px;
+  margin-left: 40%;
+  margin-top: 12%;
+  transform-style: preserve-3d;
+  transform: rotateX(-14deg);
+  animation: move 4.5s linear infinite;
+}
+@keyframes move {
+  0% {
+    transform: rotateX(-10deg) rotateY(0deg);
+  }
+  100% {
+    transform: rotateX(-10deg) rotateY(360deg);
+  }
+}
+.innerbox {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 50px;
+  top: 30px;
+  transform-style: preserve-3d;
+}
+
+.innerbox li:nth-child(1) {
+  background: url('../img/01.jpg') no-repeat 0 0;
+  background-size: cover;
+  transform: translateZ(50px);
+}
+.innerbox li:nth-child(2) {
+  background: url('../img/02.jpg') no-repeat 0 0;
+  background-size: cover;
+  transform: rotateX(180deg) translateZ(50px);
+}
+.innerbox li:nth-child(3) {
+  background: url('../img/03.jpg') no-repeat 0 0;
+  background-size: cover;
+  transform: rotateX(-90deg) translateZ(50px);
+}
+.innerbox li:nth-child(4) {
+  background: url('../img/04.jpg') no-repeat 0 0;
+  background-size: cover;
+  transform: rotateX(90deg) translateZ(50px);
+}
+.innerbox li:nth-child(5) {
+  background: url('../img/05.jpg') no-repeat 0 0;
+  background-size: cover;
+  transform: rotateY(-90deg) translateZ(50px);
+}
+.innerbox li:nth-child(6) {
+  background: url('../img/06.jpg') no-repeat 0 0;
+  background-size: cover;
+  transform: rotateY(90deg) translateZ(50px);
+}
+.outerbox li:nth-child(1) {
+  background: url('../img/01.jpg') no-repeat 0 0;
+  background-size: contain; /*单独设置有效*/
+  transform: translateZ(50px);
+}
+.outerbox li:nth-child(2) {
+  background: url('../img/02.jpg') no-repeat 0 0;
+  background-size: contain;
+  transform: translateZ(50px);
+}
+.outerbox li:nth-child(3) {
+  background: url('../img/03.jpg') no-repeat 0 0;
+  background-size: contain;
+  transform: rotateX(-90deg) translateZ(50px);
+}
+.outerbox li:nth-child(4) {
+  background: url('../img/04.jpg') no-repeat 0 0;
+  background-size: contain;
+  transform: rotateX(90deg) translateZ(50px);
+}
+.outerbox li:nth-child(5) {
+  background: url('../img/05.jpg') no-repeat 0 0;
+  background-size: contain;
+  transform: rotateY(-90deg) translateZ(50px);
+}
+.outerbox li:nth-child(6) {
+  background: url('../img/06.jpg') no-repeat 0 0;
+  background-size: contain;
+  transform: rotateY(90deg) translateZ(50px);
+}
+.innerbox li {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.outerbox {
+  /* width: 800px;
+  height: 800px;        去掉后 ，变化时滚动条均不出现*/
+  position: absolute;
+  left: 0;
+  top: -20px;
+
+  transform-style: preserve-3d;
+}
+.outerbox li {
+  width: 200px;
+  height: 200px;
+  background: #fff;
+  border: 1px solid #ccc;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0.2;
+  transition: all 1s ease;
+}
+.outerbox li:nth-child(1) {
+  transform: translateZ(100px);
+}
+.outerbox li:nth-child(2) {
+  transform: rotateX(180deg) translateZ(100px);
+}
+.outerbox li:nth-child(3) {
+  transform: rotateX(-90deg) translateZ(100px);
+}
+.outerbox li:nth-child(4) {
+  transform: rotateX(90deg) translateZ(100px);
+}
+.outerbox li:nth-child(5) {
+  transform: rotateY(-90deg) translateZ(100px);
+}
+.outerbox li:nth-child(6) {
+  transform: rotateY(90deg) translateZ(100px);
+}
+
+.box:hover .outerbox li {
+  width: 400px;
+  height: 400px;
+  opacity: 0.8;
+  left: -100px;
+  top: -100px;
+}
+.box:hover .outerbox li:nth-child(1) {
+  transform: translateZ(300px);
+}
+.box:hover .outerbox li:nth-child(2) {
+  transform: rotateX(180deg) translateZ(300px);
+}
+.box:hover .outerbox li:nth-child(3) {
+  transform: rotateX(-90deg) translateZ(300px);
+}
+.box:hover .outerbox li:nth-child(4) {
+  transform: rotateX(90deg) translateZ(300px);
+}
+.box:hover .outerbox li:nth-child(5) {
+  transform: rotateY(-90deg) translateZ(300px);
+}
+.box:hover .outerbox li:nth-child(6) {
+  transform: rotateY(90deg) translateZ(300px);
+}

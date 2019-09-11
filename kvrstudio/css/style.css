@@ -1,0 +1,362 @@
+/* 初始化 */
+body,
+ul,
+li,
+a,
+p,
+input,
+h3 {
+  font-family: 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial,
+    sans-serif;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+}
+.clearfixed::after,
+.clearfixed::before {
+  content: '';
+  display: table;
+}
+.clearfixed::after {
+  clear: both;
+}
+.wrapper-row {
+  width: 100%;
+  border-top: 8px solid #bbb;
+}
+.container {
+  position: relative;
+  width: 1200px;
+  margin: 0 auto;
+}
+section {
+  border-bottom: 1px solid #ddd;
+}
+section .logo {
+  float: left;
+  width: 280px;
+  height: 120px;
+  line-height: 120px;
+  text-align: center;
+  /* border: 1px solid #000; */
+}
+section .logo a {
+  display: inline-block;
+  height: 67px;
+  line-height: 11; /*为什么父级的line-height无效 还要给自身加这么大*/
+}
+section .logo img {
+  display: inline-block;
+  height: 100%;
+}
+section .nav {
+  /* float: right; */
+  position: absolute;
+  top: -8px;
+  right: 0;
+  /* background-color:orange; */
+}
+section .nav li {
+  float: left;
+  font-size: 16px;
+  height: 120px;
+  line-height: 120px;
+  /* border: 1px solid #000; */
+}
+section .nav li a {
+  position: relative;
+  display: inline-block;
+  height: 100%;
+  padding: 0 14px;
+  font-size: 15px;
+  color: #333;
+  border-top: 8px solid transparent;
+}
+section .nav li a::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 0;
+  width: 100%;
+  height: 8px;
+}
+section .nav li a:hover::before {
+  background: transparent url('../images/pattern.png');
+}
+section .nav li a:hover {
+  border-top-color: #bf1c2d;
+  background: linear-gradient(to bottom, #ffffff 0%, #f0f0f0 100%);
+}
+section .nav li input {
+  height: 30px;
+}
+section .nav li form {
+  position: relative;
+  height: 120px;
+  width: 110px;
+}
+section .nav li input {
+  position: absolute;
+  right: 0;
+  font-size: 13px;
+  bottom: 37px;
+  color: #777;
+  border: 1px solid #ccc;
+  outline: none;
+}
+section .nav li input::placeholder {
+  color: #a9a9a9;
+}
+section .nav li input[type='search'] {
+  width: 104px;
+  background: #f9f9f9;
+  padding: 5px 22px 5px 8px;
+  /* text-indent: .5em; */
+}
+section .nav li input[type='search']:focus {
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+section .nav li input[type='submit'] {
+  width: 28px;
+  height: 30px;
+  font-size: 0; /*使value不显示*/
+  background-size: 176px 208px;
+  background: url('../images/sprite.png') no-repeat -90px -46px;
+  border: 0;
+}
+
+.wrapper-expand {
+  position: relative;
+  margin: 20px 0 30px;
+  width: 100%;
+}
+.wrapper-expand .carousel {
+  position: relative;
+  height: 708px;
+  width: 1180px;
+  margin: 0 auto;
+  background-color: #222;
+  overflow: hidden;
+}
+.wrapper-expand .carousel ul {
+  position: absolute;
+  top: 0;
+  left: -1180px;
+  height: 100%; /*莫名708px变成712px  怀疑是 margin-block-start 的1em和margin-block-end 1em */
+  width: 2000%;
+  background-color: #bf1c2d;
+}
+.wrapper-expand .carousel ul li {
+  float: left;
+}
+.wrapper-expand .carousel-tab {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%, 0);
+  background-color: orange;
+}
+#next:hover {
+  background-position: -63px -50px;
+}
+#next {
+  display: block;
+  right: -32px;
+  width: 20px;
+  height: 30px;
+  background: url(../images/sprite.png) no-repeat -22px -50px;
+}
+#prev:hover {
+  background-position: -41px -50px;
+}
+#prev {
+  display: block;
+  left: -32px;
+  width: 20px;
+  height: 30px;
+  background: url(../images/sprite.png) no-repeat 0 -50px;
+}
+
+.wrapper-directions {
+  width: 100%;
+}
+.wrapper-directions .directions-nav {
+  margin: 0 auto;
+  width: 1180px;
+  height: 160px;
+  border: 5px solid #bf1c2d;
+  border-left: 0;
+  border-right: 0;
+  box-sizing: border-box;
+}
+.wrapper-directions .directions-nav h2 {
+  font-size: 35px;
+  color: #222;
+  font-weight: normal;
+  line-height: 40px;
+  text-transform: uppercase; /*!!!!!*/
+  margin-bottom: 20px;
+}
+.wrapper-directions .directions-nav p {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.wrapper-details {
+  width: 100%;
+  margin: 30px 0;
+}
+.wrapper-details .details-nav .nav-title {
+  width: 280px;
+  float: left;
+  margin-left: 11px;
+}
+.wrapper-details .details-nav .nav-title h2 {
+  font-weight: normal;
+  font-size: 28px;
+  text-transform: uppercase;
+  line-height: 34px;
+  color: #222;
+  margin: 0 0 8px;
+}
+.wrapper-details .details-nav .nav-title p {
+  font-size: 13px;
+  line-height: 20px;
+}
+.wrapper-details .details-nav .nav-title a {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  width: 181px;
+  text-align: center;
+  text-transform: uppercase;
+  height: 36px;
+  line-height: 36px;
+  color: #222;
+  background: #bf1c2d url('../images/pattern.png');
+}
+.wrapper-details .details-nav .nav-title a:hover {
+  color: #fff;
+  background: #222;
+}
+.wrapper-details .details-nav .nav-photos {
+  float: right;
+  margin-right: 11px;
+  /* background-color: #222; */
+}
+.details-nav .nav-photos .photos-list {
+  display: flex;
+}
+.details-nav .nav-photos li {
+  position: relative;
+  display: inline-block;
+  width: 280px;
+  margin-left: 20px;
+}
+.details-nav .nav-photos li img {
+  display: block;
+}
+.details-nav .nav-photos li:first-child {
+  margin-left: 10px;
+}
+.details-nav .nav-photos .mark {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transition: all 0.25s linear;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 10px 0;
+}
+.details-nav .mark strong {
+  line-height: 15px;
+  padding: 0 10px;
+  font-size: 12px;
+  padding-bottom: 5px;
+  text-transform: uppercase;
+}
+.details-nav li:hover .mark {
+  opacity: 1;
+}
+.details-nav .mark span {
+  font-size: 11px;
+  padding: 0 10px;
+  line-height: 17px;
+}
+.wrapper-footer {
+  width: 100%;
+  margin-top: 40px;
+  border-top: 4px solid #bf1c2d;
+  background-color: #333;
+  color: #bbb;
+}
+.wrapper-footer footer {
+  height: 256px;
+}
+.wrapper-footer footer .foot-content {
+  width: 280px;
+  margin: 0 10px;
+  overflow: hidden; /*块级格式化上下文 问题*/
+}
+.wrapper-footer .foot-content h2 {
+  font-weight: 600;
+  font-size: 21px;
+  line-height: 30px;
+  text-transform: uppercase;
+  color: #fefefe;
+  margin: 30px 0;
+}
+.wrapper-footer .foot-content div p {
+  font-size: 13px;
+  line-height: 18px;
+  margin-bottom: 6px;
+}
+.wrapper-footer .foot-content div input {
+  width: 230px;
+  height: 32px;
+  padding: 6px 4px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  outline: none;
+}
+.wrapper-footer .foot-content div button {
+  width: 89px;
+  height: 36px;
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: #bf1c2d url('../images/pattern.png');
+  color: #222;
+  border: 0;
+  cursor: pointer;
+}
+.wrapper-footer .foot-content div button:hover {
+  background: #222;
+  color: #fff;
+}
+
+.wrapper-footer .footnote {
+  margin-top: 20px;
+  padding: 5px 0;
+  background-color: #2e2e2e;
+  line-height: 40px;
+}
+.wrapper-footer .footnote h3 {
+  float: left;
+  font-size: 19px;
+}
+.wrapper-footer .footnote p {
+  float: right;
+  font-size: 12px;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url(../font/opensans-regular-webfont.woff);
+}

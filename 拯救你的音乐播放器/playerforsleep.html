@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * { /*就用一次*  */ 
+            margin: 0;
+            padding: 0;
+        }
+        .app {
+            width: 100vw;
+            height: 100vh;
+            background-image: url('./rain.jpg');
+            background-size: 100%;  
+            background-repeat: no-repeat;
+            transition: all 0.5s;
+        }
+        .time-select,
+        .play-control,
+        .sound-select {
+            display: inline-block;
+            width: 33%;
+            height: 90%;
+            
+            vertical-align: top;
+            /* background-color: green; */
+            position: relative;
+            top: 10%;
+        }
+        .time-select button:hover{
+            color: black;
+            background: white;
+        }
+        .time-select button {
+            width: 160px;
+            height: 80px;
+            font-size: 20px;
+            color: #fff;
+            border-radius: 5px;
+            display: block;
+            margin: 74px auto;
+            outline: none;
+            background: none;  /*  不加上会导致按钮背景不透明的结果*/
+            border: 2px solid #fff;/*  不加上会产生 按钮厚度感效果 */
+            transition: all 0.5s;
+        }
+        .play-control img[class=play],
+        .play-control img[class=circle] {
+            user-select: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .play-control img[class=play] {
+            z-index: 10;
+        }
+        .play-control img[class=circle] {
+            height: 50%; 
+        }
+        .time-display {
+            font-family: "宋体","Arial Narrow";
+            font-size: 40px;
+            width: 100%;   
+            text-align: center;
+            color: white;
+            position: absolute;
+            bottom: 8%;
+        }
+        .sound-select button {
+            width: 120px;
+            height: 120px;
+            /* border: 2px solid #fff; 不加边框色 使按钮有突起质感 */
+            border-radius: 50%;
+            /* background-color: #fff; */
+            display: block;
+            margin: 0 auto;
+            margin-top: 107px;
+            outline: none;
+        }
+        .sound-select button:first-child {
+            background-color: #4972a1;
+        }
+        .sound-select button:last-child {
+            background-color: #a14f49;
+        }
+        .sound-select button img {
+            height: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="time-select">
+            <button data-duration=120>2分钟</button>
+            <button data-duration="300">5分钟</button>
+            <button data-duration="600">10分钟</button>
+        </div>
+        <div class="play-control">
+            <img class="play"  src="./svg/play.svg" alt="">
+            <img class="circle" src="./svg/track-outline.svg" alt="">
+            <h3 class="time-display">00:00</h3>
+            <audio src="./sounds/beach.mp3" id="songs"></audio>
+        </div>
+        <div class="sound-select">
+            <button data-songsrc="./sounds/rain.mp3" data-bgsrc="./rain.jpg"><img src="./svg/rain.svg" alt=""></button>
+            <button data-songsrc="./sounds/beach.mp3" data-bgsrc="./beach.jpg"><img src="./svg/beach.svg" alt=""></button>
+        </div>
+    </div>
+
+    <script>
+        var timeBtn = document.getElementsByClassName('time-select')[0].getElementsByTagName('button');
+        var play = document.getElementsByClassName('play')[0];
+        var timeDisplay =document.getElementsByClassName('time-display')[0];
+        var songs = document.getElementById('songs');
+        var soundBtn = document.getElementsByClassName('sound-select')[0].getElementsByTagName('button');
+        var app = document.getElementsByClassName('app')[0];
+        var timer;
+        var totalTime = 600;
+        var time = 600;//默认
+        changeTime(time);//初始化时间
+
+
+        for(var i = 0; i < timeBtn.length; i++){
+            timeBtn[i].onclick =function() {
+                // console.log(this.dataset.duration)
+                
+                totalTime = this.dataset.duration;
+                time = totalTime
+                songs.pause();
+                clearInterval(timer);
+                changeTime();
+                // console.log(time)
+                playCheck();
+            }
+        }
+
+
+        //声音切换&背景切换
+        for(var i = 0; i < soundBtn.length; i++){
+            soundBtn[i].addEventListener("click",function(){
+                songs.src = this.dataset.songsrc;
+                clearInterval(timer)
+                time = totalTime;
+                changeTime();//切换 时间初始化
+                playCheck();
+                app.style.backgroundImage = 'url('+this.dataset.bgsrc+')';
+            })
+        }
+
+        //播放&暂停
+        play.onclick = playCheck;
+        
+        
+        function playCheck(){
+            
+            //console.dir(songs)
+            //console.log(songs.paused)
+            //判断播放与否
+            if(songs.paused){
+                songs.play();
+                play.src='./svg/pause.svg';
+                timer = setInterval(() => {  
+                    time--;
+                    changeTime();
+
+                    if(time == 0){
+                        clearInterval(timer);
+                        songs.pause();
+                        play.src='./svg/play.svg';
+                        time = totalTime;
+                        changeTime();//少了它，即使这里time重置了，也不会显示出来
+                    }               
+                }, 1000); 
+                
+            }else{
+                songs.pause();
+                play.src='./svg/play.svg';
+                clearInterval(timer);//第一次我加了''  注意不能加！！！
+                //timer = null; 没有累加的可能时可以不加 var =null也可不设
+            }
+        
+        }
+        //532s -> 08:52
+        function changeTime(){
+            var min = parseInt(time / 60)     // Math.floor(time/60)
+            var sec = time - min * 60
+            timeDisplay.innerText = changeType(min)+":"+changeType(sec)
+        }
+        //9:09 -> 09:09
+        function changeType(num){
+            if(num < 10){
+            return "0" + num;
+             }else{
+            return num
+            }
+        }
+        
+    </script>
+</body>
+</html>

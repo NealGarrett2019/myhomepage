@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/iconfont.css" />
+  </head>
+  <body>
+    <div class="warpper">
+      <!-- 歌曲名 -->
+      <div class="name">
+        <h3 id="_name">妳太善良</h3>
+        <b style="font-size: 12px;color:red">by</b> <em id="_sname">张智霖</em>
+      </div>
+      <main class="main">
+        <img src="./source/张智霖.png" width="200px" height="200px" alt="" />
+        <audio id="audio" src="./source/张智霖 - 妳太善良.mp3"></audio>
+      </main>
+      <!-- 控制区 -->
+      <div class="controler">
+        <div class="previous">
+          <span class="iconfont icon-iconset0486-copy"></span>
+        </div>
+        <div class="btn">
+          <span class="iconfont icon-bofang"></span>
+        </div>
+        <div class="next">
+          <span class="iconfont icon-iconset0486"></span>
+        </div>
+        <!-- 播放条 -->
+        <div class="progress">
+          <div class="current-time">00:00</div>
+          <div class="pro-box">
+            <div class="pro-bg"></div>
+            <div class="pro-active">
+              <div class="radio-box">
+                <span class="radio"></span>
+              </div>
+            </div>
+          </div>
+          <div class="all-time">00:00</div>
+        </div>
+        <!-- 音量条 -->
+        <div class="vol">
+          <span class="iconfont icon-shengyinkai"></span>
+          <div class="vol-bar" style="display:none">
+            <div class="vol-bg">
+              <div class="vol-active">
+                <div class="bar-box">
+                  <div class="vol-dot"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/index.js"></script>
+  </body>
+</html>

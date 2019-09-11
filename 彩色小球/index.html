@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+        const myCanvas = document.querySelector('canvas');
+        const ctx = myCanvas.getContext("2d")
+
+        myCanvas.width = document.documentElement.clientWidth;
+        myCanvas.height = document.documentElement.clientHeight;
+
+const colorArr = ['#ff0000','#eb4310','#f6941d','#fbb417','#ffff00','#cdd541','#99cc33','#3f9337','#219167','#239676','#24998d','#1f9baa','#0080ff','#3366cc','#333399','#003366','#800080','#a1488e','#c71585','#bd2158']
+const len = colorArr.length +1
+        function Ball(x,y) {
+            this.x = x;
+            this.y = y;
+            this.r = 30;
+            this.color = colorArr[parseInt(Math.random()*len)];
+            this.dx = parseInt(Math.random()*19 - 9);
+            this.dy = parseInt(Math.random()*19 - 9);
+            ballsArr.push(this)
+        }
+
+        Ball.prototype.render = function () {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, true);
+            ctx.closePath();
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        }
+
+        Ball.prototype.update = function () {
+            this.x += this.dx;
+            this.y += this.dy;
+            this.r --;
+            if (this.r < 0) {
+                this.godie()
+            }
+        }
+
+        Ball.prototype.godie = function () {
+            for (let i in ballsArr) {
+                if (ballsArr[i] == this) {
+                    ballsArr.splice(i,1)
+                }
+            }
+        }
+        // var b = new Ball(100,100)
+        // b.render()
+
+        var ballsArr = []
+
+
+        setInterval(function() {
+            // 清屏
+            ctx.clearRect(0, 0, myCanvas.width, myCanvas.height)
+            for (let i in ballsArr) {
+                ballsArr[i].render()
+                ballsArr[i].update()
+            }
+
+        }, 40)
+
+        myCanvas.onmousemove = function(e){
+            new Ball(e.clientX,e.clientY)
+        }
+
+    </script>
+</body>
+</html>

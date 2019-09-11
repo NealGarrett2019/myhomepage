@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>图书热卖榜</title>
+    <style>
+      body,
+      h2,
+      ul,
+      li,
+      p,
+      a {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        text-decoration: none;
+        color: inherit;
+        font-size: inherit;
+      }
+
+      body {
+        transform: scale(1.5);
+        transform-origin: center top;
+        overflow-x: hidden; /*查看全局可以注释掉这行*/
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .clearfixed::before,
+      .clearfixed::after {
+        content: '';
+        display: table;
+      }
+      .clearfixed::after {
+        clear: both;
+      }
+
+      .wrapper {
+        position: relative;
+        margin: 10px auto;
+        width: 240px;
+        box-shadow: 0 6px 10px 0 #ccc;
+      }
+      .wrapper h2 {
+        padding-left: 34px;
+        width: 240px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 18px;
+        color: #d72832;
+        background: url('./image/sprite.png') 2% -4% no-repeat;
+      }
+      .wrapper > input {
+        display: none;
+      }
+      .list > li label {
+        float: left;
+        width: 48px;
+        height: 25px;
+        line-height: 23px; /*混杂盒模型下，line-height应与content高度一致-> 垂直居中*/
+        text-align: center;
+        font-weight: 300;
+        font-size: 13px;
+        box-sizing: border-box;
+        border: 1px solid #eaeaea;
+        border-left: 0;
+        transition: all 0.3s linear;
+        cursor: pointer;
+        user-select: none;
+      }
+      .list > li label:first-child {
+        border-left: 1px solid #eaeaea;
+      }
+
+      .main {
+        position: relative;
+        min-height: 400px;
+        width: 100%;
+        font-size: 12px;
+        box-sizing: border-box;
+        border: 1px solid #eaeaea;
+        border-top: 0;
+        border-bottom: 0;
+        overflow: hidden;
+      }
+      .main:hover {
+        height: 520px;
+      }
+      .main > ul.sorts > li {
+        display: none;
+        margin: 0px 10px 0 6px;
+        border-bottom: 2px dotted #d8d8d8;
+      }
+      .main .num {
+        float: left;
+        margin-top: 8px;
+        margin-left: 8px;
+        width: 29px;
+        font-size: 16px;
+      }
+      .main .name {
+        float: left;
+        width: 182px;
+        height: 36px;
+        line-height: 3.2;
+        overflow: hidden;
+      }
+
+      .spread {
+        display: none;
+      }
+      .img {
+        float: left;
+        margin: 0 2px;
+        width: 120px;
+        height: 120px;
+      }
+      .info {
+        float: right;
+        width: 72px;
+        overflow: hidden;
+        font-size: 12px;
+      }
+      .info__name {
+        margin-top: 4px;
+        height: 44px;
+        line-height: 22px;
+        overflow: hidden;
+        font-size: 12px;
+      }
+      .info__name:hover {
+        text-decoration: underline;
+        color: #ec7814;
+      }
+      .info__price {
+        margin-top: 6px;
+        font-size: 14px;
+      }
+      .info__price--cur {
+        color: #d72832;
+        height: 20px;
+        line-height: 20px;
+      }
+      .info__price--del {
+        height: 18px;
+        line-height: 18px;
+      }
+      .info__comment {
+        color: #487a6f;
+      }
+
+      .wrapper .more {
+        position: absolute;
+        bottom: -1px;
+        height: 30px;
+        width: 100%;
+        line-height: 3.5;
+        color: #5097bc;
+        text-align: right;
+        font-size: 12px;
+        background-color: #fff; /*遮挡li：last-child的border-bottom 则无需再操作伪元素*/
+        border: 1px solid #eaeaea;
+        border-top: 0;
+        box-sizing: border-box;
+      }
+
+      #btn1:checked ~ .main .sort1 > li,
+      #btn2:checked ~ .main .sort2 > li,
+      #btn3:checked ~ .main .sort3 > li,
+      #btn4:checked ~ .main .sort4 > li,
+      #btn5:checked ~ .main .sort5 > li {
+        display: block;
+      }
+      #btn1:checked ~ .list label[for='btn1'],
+      #btn2:checked ~ .list label[for='btn2'],
+      #btn3:checked ~ .list label[for='btn3'],
+      #btn4:checked ~ .list label[for='btn4'],
+      #btn5:checked ~ .list label[for='btn5'] {
+        border-bottom: 0;
+        border-top: 2px solid #487a6f;
+        color: #487a6f;
+        font-weight: 600;
+      }
+
+      .main .sort1 > li:hover .spread,
+      .main .sort2 > li:hover .spread,
+      .main .sort3 > li:hover .spread,
+      .main .sort4 > li:hover .spread,
+      .main .sort5 > li:hover .spread {
+        display: block;
+        margin: 10px auto 20px;
+        height: 120px;
+      }
+      .main .sort1 > li:hover .name,
+      .main .sort2 > li:hover .name,
+      .main .sort3 > li:hover .name,
+      .main .sort4 > li:hover .name,
+      .main .sort5 > li:hover .name {
+        display: none;
+      }
+      .main .sort1 > li:hover .num,
+      .main .sort2 > li:hover .num,
+      .main .sort3 > li:hover .num,
+      .main .sort4 > li:hover .num,
+      .main .sort5 > li:hover .num {
+        width: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 查看整体可以注释掉第17行 -->
+    <div class="wrapper">
+      <h2>新书热卖榜</h2>
+      <input type="radio" name="sorts" id="btn1" checked />
+      <input type="radio" name="sorts" id="btn2" />
+      <input type="radio" name="sorts" id="btn3" />
+      <input type="radio" name="sorts" id="btn4" />
+      <input type="radio" name="sorts" id="btn5" />
+      <ul class="list">
+        <li>
+          <label for="btn1">总榜</label>
+          <label for="btn2">童书</label>
+          <label for="btn3">小说</label>
+          <label for="btn4">青春</label>
+          <label for="btn5">亲子</label>
+        </li>
+      </ul>
+      <div class="main">
+        <ul class="sorts sort1"></ul>
+        <ul class="sorts sort2"></ul>
+        <ul class="sorts sort3"></ul>
+        <ul class="sorts sort4"></ul>
+        <ul class="sorts sort5"></ul>
+      </div>
+      <a class="more" href="javascript:;">查看完整榜单>></a>
+    </div>
+
+    <script src="./js/sorts.js"></script>
+    <script src="./js/index.js"></script>
+  </body>
+</html>

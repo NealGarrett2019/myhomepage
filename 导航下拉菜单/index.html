@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      /* 初始化 */
+      body,
+      ul,
+      li,
+      a,
+      em {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-style: normal;
+        text-decoration: none;
+      }
+      body {
+        background-color: #ffeb3b;
+      }
+      .clearfixed::before,
+      .clearfixed::after {
+        content: '';
+        display: table;
+      }
+      .clearfixed::after {
+        clear: both;
+      }
+
+      /*导航条*/
+      .nav {
+        width: 100%;
+        margin-top: 30px;
+        background-color: #111;
+        overflow: hidden;
+      }
+      .container {
+        width: 80%;
+        min-width: 960px;
+        margin: 0 auto;
+      }
+      .nav__ul {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        height: 46px;
+      }
+      .nav__list {
+        height: 46px;
+      }
+      .list__a {
+        position: relative;
+        bottom: 46px;
+        display: block;
+        height: 92px;
+        color: #fff;
+        /* background-color: #ff6; */
+        transition: bottom 0.2s ease-out;
+      }
+      .list__a:hover {
+        bottom: 0;
+        z-index: 1;
+      }
+      .list__a em {
+        display: block;
+        height: 46px;
+        line-height: 46px;
+        text-align: center;
+        font-size: 16px;
+        word-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+      .list__a em:first-child {
+        font-weight: 600;
+        font-size: 17px;
+        text-indent: 0.2em;
+        letter-spacing: 0.12em;
+        background-color: #222;
+        color: #fff;
+        transition: all 0.2s ease-in-out 0.2s;
+      }
+      .list__em--borderleft {
+        box-shadow: -1px 0 1px 0 #fc6;
+      }
+      .list__a:hover em:first-child {
+        color: #fc6;
+      }
+      .list__a:hover em:first-child::before {
+        position: absolute;
+        top: 2px;
+        content: '';
+        padding: 0 10px;
+        height: 3px;
+        background-color: #fc6;
+      }
+
+      /* 二级菜单 */
+      .list__ul::after {
+        content: '';
+        position: absolute;
+        top: 0px;
+        right: -2px;
+        width: 35%;
+        height: 2px;
+        background: #fc6;
+      }
+      .list__ul::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(-50deg, transparent 15px, #fc6 0);
+        z-index: -1;
+      }
+      .list__ul {
+        display: none;
+        position: absolute;
+        top: 74px;
+        width: 140px;
+        padding: 10px 0 10px 5px;
+        background: linear-gradient(-50deg, transparent 15px, #222 0);
+      }
+      .list__ul--width {
+        width: 275px;
+      }
+      .list__ul--width::after {
+        width: 60%;
+      }
+      .list__ul > li {
+        display: inline-block;
+        height: 30px;
+        padding: 5px 25px 0px 10px;
+      }
+      .list__ul > li > a {
+        font-size: 14px;
+        color: #fff;
+      }
+      .list__ul > li > a:hover {
+        color: #fc6;
+        text-decoration: underline;
+      }
+
+      /*js控制显示*/
+      .show .list__ul {
+        display: block;
+      }
+      .show .list__a {
+        bottom: 0;
+        z-index: 1;
+      }
+      .show .list__a em:first-child {
+        color: #fc6;
+      }
+      .show .list__a em:first-child::before {
+        position: absolute;
+        top: 2px;
+        content: '';
+        padding: 0 10px;
+        height: 3px;
+        background-color: #fc6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav">
+      <div class="container">
+        <ul class="nav__ul clearfixed">
+          <li class="nav__list">
+            <a class="list__a" href="javascript:;">
+              <em>首 页</em>
+              <em style="letter-spacing: 0.1em">home</em>
+            </a>
+          </li>
+          <li class="nav__list  nav__list--dropinfo">
+            <a class="list__a" href="javascript:;">
+              <em class="list__em--borderleft">关于蝉壳</em>
+              <em style="letter-spacing: 0.1em">about us</em>
+            </a>
+            <ul class="list__ul">
+              <li><a href="###">生长历程</a></li>
+              <li><a href="###">优秀导师</a></li>
+              <li><a href="###">合作团队</a></li>
+            </ul>
+          </li>
+          <li class="nav__list">
+            <a class="list__a" href="javascript:;">
+              <em>新闻媒体</em>
+              <em>news & media</em>
+            </a>
+          </li>
+          <li class="nav__list">
+            <a class="list__a" href="javascript:;">
+              <em>产&emsp;品</em>
+              <em>products</em>
+            </a>
+          </li>
+          <li class="nav__list">
+            <a class="list__a" href="javascript:;">
+              <em>服务与机构</em>
+              <em>Services & Insts</em>
+            </a>
+          </li>
+          <li class="nav__list nav__list--dropinfo">
+            <a class="list__a" href="javascript:;">
+              <em class="list__em--borderleft">人才招聘</em>
+              <em>Recruitment</em>
+            </a>
+            <ul class="list__ul list__ul--width">
+              <li><a href="###">前端工程师1</a></li>
+              <li><a href="###">前端工程师2</a></li>
+              <li><a href="###">前端工程师3</a></li>
+              <li><a href="###">前端工程师4</a></li>
+              <li><a href="###">前端工程师5</a></li>
+              <li><a href="###">编程鼓励师1</a></li>
+              <li><a href="###">编程鼓励师2</a></li>
+              <li><a href="###">高级架构师</a></li>
+            </ul>
+          </li>
+          <li class="nav__list">
+            <a class="list__a" href="">
+              <em>联系我们</em>
+              <em style="letter-spacing: 0.1em">Contact</em>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      var aLi = document.getElementsByClassName('nav__list--dropinfo')
+      var len = aLi.length
+      for (var i = 0; i < len; i++) {
+        aLi[i].onmouseover = function() {
+          if (this.className != 'nav__list nav__list--dropinfo show') {
+            this.className = 'nav__list nav__list--dropinfo show'
+          }
+        }
+        aLi[i].onmouseleave = function() {
+          this.className = 'nav__list nav__list--dropinfo'
+        }
+      }
+    </script>
+  </body>
+</html>

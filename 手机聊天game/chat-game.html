@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style type="text/css">
+        .wrapper {
+            width: 300px;
+            height: 500px;
+            margin: 30px auto 0;
+            padding: 23px 2px 24px;
+            background-color: #dec4b5;
+            /* box-sizing: border-box; */
+            border-radius: 1.2%;
+        }
+        .main {
+            position: relative;
+            width: 100%;
+            height: 97%;
+        }
+        .main .receiver {
+            position: absolute;
+            top: -2.5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 17%;
+            height: 1%;
+            border: 1px solid #D8C1B7;
+            border-radius: 5px;
+            background-color: #B7A298;
+            box-shadow: 0 0 1px 1px #888 inset;
+        }
+        .main .receiver .inductor {
+            position: absolute;
+            left: -28%;
+            width: 11%;
+            height: 105%;
+            border: 1px solid #D8C1B7;
+            border-radius: 50%;
+            background-color: #B7A298;
+            box-shadow: 0 0 1px 1px #ddd inset, 0 0 1px 0px #aaa;
+        }
+        .main .exhibt {
+            padding: 8px 3px 0;
+            width: 98%;
+            height: 92%;
+            background-color: #fff;
+
+            overflow: auto;
+            overflow-x: hidden;
+        }
+        .main .exhibt::-webkit-scrollbar {
+            width: 4px;
+        }
+        .main .exhibt::-webkit-scrollbar-thumb {
+            background-color: #757575;
+            border-right: 2px solid #fff;
+        }
+
+        .main .operate {
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            height: 9%;
+            background-color: #f2f2f2;
+            box-shadow: 0 -1px 3px 0px rgba(0,0,0,0.15);
+        }
+        #ico {
+            width: 11%;
+            height: 73%;
+            border-radius: 15%;
+            border: 1px solid #eee ;
+            box-shadow: 0 0 4px 0px rgba(0,0,0,.1);
+        }
+        #text {
+            width: 65%;
+            height: 70%;
+            outline: none;
+            font-size: 15px;
+            text-indent: 0.5em;
+            border: 0;
+        }
+        #send {
+            width: 15%;
+            height: 60%;
+            color: #bbb;
+            padding: 0;
+            font-size: 10px;
+        }
+        #type1,#type2 {
+            width: 100%;
+            padding: 2px 0;
+            margin-left: 0;
+            margin-right: 0;
+            margin-top: 2px;
+        }
+        #type2 {
+            text-align: right; /*div里面的内容靠右排列*/
+        }
+        #type1 span,
+        #type2 span {
+            display: inline-block;
+            max-width: 66%;
+            padding: 2px 4px;
+            vertical-align: top;
+            font-size: 14px;
+            line-height: 1.3;
+            border-radius: 4%;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+            text-align: left;
+/*所有文字统统给我换行*/
+            table-layout:fixed;
+            word-break: break-all;
+            overflow:hidden;
+        }
+        #type1 span {
+            background-color: #fff;
+        }
+        #type2 span {
+            background-color: #B2E281;
+        }
+        #type1 img,
+        #type2 img {
+            margin: 0 4px;
+            width: 30px;
+            height: 30px;
+            border-radius: 15%;
+            border: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="main">
+            <div class="receiver">
+                <div class="inductor"></div>
+            </div>
+            <div class="exhibt"></div>
+            <div class="operate">
+                <img id="ico" src="images/831D20.bmp" data-src1="images/831D20.bmp" data-src2="images/831D80.bmp">
+                <input id="text" type="text" name="">
+                <input id="send" type="submit" name="" value="send">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var oExhibt = document.getElementsByClassName('exhibt')[0],
+            oIco = document.getElementById('ico'),
+            oText = document.getElementById('text'),
+            oSend = document.getElementById('send');
+
+        // oSend.onclick = function () {
+        //     oExhibt.innerHTML ='<div id="type1"><img src="' + oIco.src + '"><span>' + oText.value + '</span></div>'+ oExhibt.innerHTML;
+        // }
+//<div id="type1"><img src=""><span></span></div> 拼接原型
+        // oSend.onclick = function () {
+        //     oExhibt.innerHTML = '<div id="type2"><span>'+ oText.value +'</span><img src="'+ oIco.src +'"></div>' + oExhibt.innerHTML;
+        // }
+
+        var flag = true;
+        oIco.onclick = function () {
+            if ( flag == true ) {
+                oIco.src = oIco.dataset.src2;
+                flag = !flag;
+                oSend.onclick = function () {
+                    if(oText.value == '') {
+                        alert('nothing inside')
+                    } else {
+                        oExhibt.innerHTML ='<div id="type1"><img src="' + oIco.src + '"><span>' + oText.value + '</span></div>'+ oExhibt.innerHTML;
+                        oText.value = '';
+                    }
+                }
+            } else {
+                oIco.src = oIco.dataset.src1;
+                flag = !flag;
+                oSend.onclick = function () {
+                    if(oText.value == '') {
+                        alert('nothing inside')
+                    } else {
+                        oExhibt.innerHTML = '<div id="type2"><span>'+ oText.value +'</span><img src="'+ oIco.src +'"></div>' + oExhibt.innerHTML;
+                        oText.value = '';
+                    }
+                }
+            }
+        }
+        oIco.onclick();
+    </script>
+</body>
+</html>

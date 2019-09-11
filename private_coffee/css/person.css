@@ -1,0 +1,149 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+/* 头部 */
+.header {
+  background-image: url('../images/bg4.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.header-main {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 0 0 0;
+}
+.header-main .title {
+  font-size: 46px;
+  font-weight: 900;
+  color: #fff;
+  text-align: center;
+}
+.logo-main {
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+.logo-con img {
+  width: 10%;
+  padding: 10px 0;
+}
+.menu-con {
+  height: 150px;
+  line-height: 150px;
+}
+.menu-con ul {
+  display: flex;
+  justify-content: space-around;
+  /* transform: translateX(-100%); */
+}
+.menu-con li {
+  width: 100px;
+  flex: 1;
+  text-align: center;
+  color: #eee;
+}
+@media (max-width: 767px) {
+  .title {
+    padding: 12vw 0;
+  }
+  .menu-con {
+    display: none;
+  }
+}
+@media (min-width: 768px) {
+  .header-main {
+    padding: 40px 0 80px;
+  }
+  .title {
+    padding: 6vw 0;
+  }
+}
+@media (min-width: 1200px) {
+  .header-main {
+    width: 67%;
+  }
+  .title {
+    padding: 7vw 0;
+  }
+}
+/* 关于我们 */
+.aboutUs-title .container {
+  text-align: center;
+  margin: 80px auto;
+}
+.aboutUs-title .container .title {
+  font-weight: bold;
+  color: #363d70;
+}
+.aboutUs-title .container .title img {
+  margin: 0 10px;
+  width: 27px;
+  vertical-align: middle;
+}
+.aboutUs-title .container p {
+  margin: 13px 0;
+  font-size: 12px;
+}
+/* 底部 */
+.footer .container {
+  width: 100%;
+  background-color: #363d70;
+  height: 101px;
+  max-width: inherit;
+}
+.footer .container ul {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+  height: 16px;
+}
+.footer .container ul a {
+  font-size: 14px;
+  color: #fff;
+  text-decoration: none;
+  line-height: 16px;
+}
+.footer .container ul span {
+  color: #ccc;
+  padding: 0 8px;
+}
+
+/* 动画 */
+.logoMove {
+  animation: logoMove 1s ease;
+}
+.toRight {
+  animation: toRight 1s cubic-bezier(0.42, 0, 0.58, 1);
+}
+/* 从左向右动画 */
+@keyframes toRightAni {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+/* logo动画 */
+@keyframes logoMoveAni {
+  0% {
+    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+  40% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+    animation-timing-function: ease-in;
+  }
+  60% {
+    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+    opacity: 1;
+  }
+  80% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+  }
+  100% {
+    transform: perspective(400px);
+    opacity: 1;
+  }
+}

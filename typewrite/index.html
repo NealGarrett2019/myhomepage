@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="./animate.css" />
+    <style type="text/css">
+      body {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        background: radial-gradient(circle, #444 0%, #000 50%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      #char {
+        font-size: 400px;
+        color: #506; /* background-color: pink; */
+        text-shadow: #888 0px 0px 50px;
+      }
+      #result {
+        width: 100%; /* background-color: skyblue; */
+        text-align: center;
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="char">A</div>
+    <div id="result">请按照我们屏幕上的字母按下按键</div>
+
+    <script>
+      //字母随机 数字随机 A 65 Z 90 随机一个65-90
+      // [0,1)
+      var char = 'A'
+      var charDOM = document.getElementById('char')
+      var correctNum = 0
+      var errorNum = 0
+
+      var resultDom = document.getElementById('result')
+
+      document.addEventListener('keydown', function(e) {
+        //物理按键
+        console.log('Key' + char)
+
+        if (e.code === 'Key' + char) {
+          //再次更新字母
+          // console.log("好使");
+          changeChar()
+          correctNum++
+          charDOM.className = 'animated zoomIn'
+        } else {
+          errorNum++
+          charDOM.className = 'animated shake'
+          charDOM.style.color = 'red'
+        }
+        // changeChar();//放这里初始值仍为A
+        var percent =
+          ((correctNum / (correctNum + errorNum)) * 100).toFixed(2) + '%'
+        resultDom.innerHTML = `正确的个数 ${correctNum} 错误的个数 ${errorNum} 正确率 ${percent}`
+
+        setTimeout(function() {
+          charDOM.className = ''
+        }, 500)
+      })
+      function changeChar() {
+        //设置随机字母
+        var code = Math.floor(Math.random() * 26 + 65)
+        char = String.fromCharCode(code)
+        //console.log(String,fromCharCode(33))
+        charDOM.innerText = char
+
+        //设置随机色
+        var letters = '0123456789abcdef'
+        var color = '#'
+        //遍历color6位编码值
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)]
+        }
+        // console.log(color);
+        charDOM.style.color = color
+      }
+      changeChar() //放这里，则初始值会改变
+
+      //es6
+      //var str1 = `哇！！${name}真帅`
+      //babeljs.io
+    </script>
+  </body>
+</html>

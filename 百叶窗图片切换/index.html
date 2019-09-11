@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>纯css实现百叶窗图片切换</title>
+  <style type="text/css">
+    body,ul,li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .wrapper {
+      width: 540px;
+      height: 302px;
+      margin: 5px auto 0;
+      border: 16px solid #000;
+      border-radius: 16px;
+      font-size: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .wrapper ul {
+      height: 302px; 
+      width: 25%;
+      display: inline-block;
+      position: relative;
+    }
+    .wrapper ul li {
+      width: 100%;
+      height: 100%;
+      /* background-color: hotpink; */
+    }
+    .wrapper ul div { /*像这样笼统选择减少工作量 简化选择*/
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      /* display: none;       要动画实现，这里的none一定要去掉，用opacity=0代替，否则无动画效果*/
+      opacity: 0;
+      transform: scale(1.5);
+      transition: all 0.5s ease;
+    }
+    .wrapper li .slices1 {
+      background-image: url('./images/ui.jpg'); 
+    }
+    .wrapper li .slices2 {
+      background-image: url('./images/yuanhua.jpg');  
+    }
+    .wrapper li .slices3 {
+      background-image: url('./images/design.jpg');  
+    }
+    .wrapper li .slices4 {
+      background-image: url('./images/sheying.jpg');  
+    }
+    .wrapper .item1 .slices1,
+    .wrapper .item1 .slices2,
+    .wrapper .item1 .slices3,
+    .wrapper .item1 .slices4 {
+      background-position: 0 0;
+    }
+    .wrapper .item2 .slices1,
+    .wrapper .item2 .slices2,
+    .wrapper .item2 .slices3,
+    .wrapper .item2 .slices4 {
+      background-position: -135px 0;
+    }
+    .wrapper .item3 .slices1,
+    .wrapper .item3 .slices2,
+    .wrapper .item3 .slices3,
+    .wrapper .item3 .slices4 {
+      background-position: -270px 0;
+    }
+    .wrapper .item4 .slices1,
+    .wrapper .item4 .slices2,
+    .wrapper .item4 .slices3,
+    .wrapper .item4 .slices4 {
+      background-position: -405px 0;
+    }
+    .wrapper .control {
+      width: 100%;
+      height: 30px;
+      position: absolute;
+      bottom: 60px;
+      left: 0;
+      /* border: 1px solid #000; */
+    }
+    .wrapper .control span {
+      display: inline-block;
+      width: 25%;  
+      height: 100%;
+      /* background-color: hotpink; */
+      text-align: center;
+    }
+    .control span label {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      background-color: #ddd;
+      border-radius: 50%;
+      font-size: 14px;
+      display: inline-block;
+      cursor: pointer;
+    }
+    #bg1:checked ~ .wrapper .slices1,
+    #bg2:checked ~ .wrapper .slices2,
+    #bg3:checked ~ .wrapper .slices3,
+    #bg4:checked ~ .wrapper .slices4 {
+      display: block;
+      opacity: 1;
+      transform: scale(1.0);
+    }
+    input {
+      display: none;
+    }
+    #bg1:checked ~ .wrapper .control span:nth-child(1) label,
+    #bg2:checked ~ .wrapper .control span:nth-child(2) label,
+    #bg3:checked ~ .wrapper .control span:nth-child(3) label,
+    #bg4:checked ~ .wrapper .control span:nth-child(4) label {
+      background-color: rgb(248, 236, 66);
+      color: rgb(255, 128, 44);
+    }
+/*这样无效 #bg1:checked ~ .wrapper .control label:nth-child(1),
+          #bg2:checked ~ .wrapper .control label:nth-child(2),
+          #bg3:checked ~ .wrapper .control label:nth-child(3),
+           #bg4:checked ~ .wrapper .control label:nth-child(4) */
+/*这样无效  #bg1:checked ~ .wrapper .control label:nth-of-type(1),
+            #bg2:checked ~ .wrapper .control label:nth-of-type(2),
+            #bg3:checked ~ .wrapper .control label:nth-of-type(3),
+            #bg4:checked ~ .wrapper .control label:nth-of-type(4) { 
+            background-color: orange;
+            color: white;
+          }*/
+
+
+
+  </style>
+</head>
+<body>
+  <input type="radio" name="btn" id="bg1" checked>
+  <input type="radio" name="btn" id="bg2">
+  <input type="radio" name="btn" id="bg3">
+  <input type="radio" name="btn" id="bg4">
+  <div class="wrapper">
+    <ul class="promo-bd">
+      <li class="item1"><div class="slices1"></div></li>
+      <li class="item1"><div class="slices2"></div></li>
+      <li class="item1"><div class="slices3"></div></li>
+      <li class="item1"><div class="slices4"></div></li>
+    </ul>
+    <ul class="promo-bd">
+      <li class="item2"><div class="slices1"></div></li>
+      <li class="item2"><div class="slices2"></div></li>
+      <li class="item2"><div class="slices3"></div></li>
+      <li class="item2"><div class="slices4"></div></li>
+    </ul>
+    <ul class="promo-bd">
+      <li class="item3"><div class="slices1"></div></li>
+      <li class="item3"><div class="slices2"></div></li>
+      <li class="item3"><div class="slices3"></div></li>
+      <li class="item3"><div class="slices4"></div></li>
+    </ul>
+    <ul class="promo-bd">
+      <li class="item4"><div class="slices1"></div></li>
+      <li class="item4"><div class="slices2"></div></li>
+      <li class="item4"><div class="slices3"></div></li>
+      <li class="item4"><div class="slices4"></div></li>
+    </ul>
+    <div class="control">
+      <span><label for="bg1">1</label></span>
+      <span><label for="bg2">2</label></span>
+      <span><label for="bg3">3</label></span>
+      <span><label for="bg4">4</label></span>
+    </div>
+  </div>
+  
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>打地鼠</title>
+  <style type="text/css">
+    body,em {
+      margin: 0;
+      padding: 0;
+      font-style: normal;
+    }
+    #scene {
+      width: 750px;
+      height: 550px;
+      background-image: url('./images/bg.png');
+      position: relative;
+      user-select: none;
+      cursor: none;
+    }
+    #score {
+      position: absolute;
+      top: 195px;
+      left: 236px;
+    }
+    #remain-bar {
+      position: absolute;
+      top: 195px;
+      left: 484px;
+      width: 116px;
+      height: 21px;
+      background-color: #66CDAA;
+    }
+    #hammer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      user-select: none;
+      cursor: none;
+      /* border: 1px solid #000; */
+      z-index: 999; /*确保锤子 不被老鼠遮挡*/
+
+      margin-top: -50px;/*将鼠标绑定锤子合适位置*/
+      margin-left: -44px;
+    }
+    div[id^=hollow] {
+      width: 102px;
+      height: 102px;
+      position: absolute;
+      /* border: 1px solid #000; */
+      overflow: hidden;
+      border-bottom-left-radius: 51px 25px;
+      border-bottom-right-radius: 51px 25px;
+    }
+    div[id^=hollow] img {
+      position: absolute;
+      top: 102px;
+    }
+    #hollow1 {
+      top: 178px;
+      left: 141px;
+    }
+    #hollow2 {
+      top: 178px;
+      left: 329px;
+    }
+    #hollow3 {
+      top: 183px;
+      left: 528px;
+    }
+    #hollow4 {
+      top: 267px;
+      left: 116px;
+    }
+    #hollow5 {
+      top: 269px;
+      left: 333px;
+    }
+    #hollow6 {
+      top: 266px;
+      left: 532px;
+    }
+    #hollow7 {
+      top: 361px;
+      left: 109px;
+    }
+    #hollow8 {
+      top: 369px;
+      left: 333px;
+    }
+    #hollow9{
+      top: 369px;
+      left: 550px;
+    }
+    #shade {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0,.4);
+    }
+    #start {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 150px;
+      height: 150px;
+      text-align: center;
+      line-height: 1;
+      font-size: 60px;
+      font-weight: 600;
+      border-radius: 50%;
+      color: rgba(255,255,255,.6);
+      background-color: rgba(0,0,0,.4);
+      outline: none;
+    }
+    #shade div {
+      display: none;
+      position: absolute;
+      top: 25%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0 auto;
+      font-size: 60px;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div id="scene">
+    <span id="score">0</span>
+    <div id="remain-bar"></div>
+    <img src="./images/hammer1.png" alt="" id="hammer">
+    <div id="hollow1"><img src="./images/mouse1.png" alt=""></div>
+    <div id="hollow2"><img src="./images/mouse1.png" alt=""></div>
+    <div id="hollow3"><img src="./images/mouse1.png" alt=""></div>
+    <div id="hollow4"><img src="./images/mouse1.png" alt=""></div>
+    <div id="hollow5"><img src="./images/mouse1.png" alt=""></div>
+    <div id="hollow6"><img src="./images/mouse1.png" alt=""></div>
+    <div id="hollow7"><img src="./images/mouse1.png" alt=""></div>
+    <div id="hollow8"><img src="./images/mouse1.png" alt=""></div>
+    <div id="hollow9"><img src="./images/mouse1.png" alt=""></div>
+  </div>
+  <div id="shade">
+    <div>获得：<span>0</span><em style="margin-left: 1em;font-size: 10px;">分</em></div>
+    <button id="start">start</button>
+  </div>
+
+
+  <script type="text/javascript">
+    var scene = document.getElementById('scene');
+    var hammer = document.getElementById('hammer');
+    var score = document.getElementById('score');
+    var remBar = document.getElementById('remain-bar');
+    var start = document.getElementById('start');
+    var shade = document.getElementById('shade');
+    var oDiv = shade.getElementsByTagName('div')[0];
+    var oSpan = oDiv.getElementsByTagName('span')[0];
+
+    var newWidth;
+    var getScores = 0;  //初始得分
+    //鼠标单击 锤子动作
+    scene.onmousedown = function(){
+      hammer.src = './images/hammer2.png';
+    }
+    scene.onmouseup = function(){
+      hammer.src = './images/hammer1.png';
+    }
+    //锤子位置绑定鼠标坐标
+    scene.onmousemove =(function (e) {
+      // console.log(e.clientX + " " + e.clientY)
+      hammer.style.top = e.clientY + 'px';
+      hammer.style.left = e.clientX + 'px';
+    })
+    scene.onclick =(function (e) {
+      var x = e.clientX;
+      var y = e.clientY;
+
+      var x1 = hollowArr[mouseID].offsetLeft;
+      var y1 = hollowArr[mouseID].offsetTop + mouseArr[mouseID].offsetTop;
+      var x2 = x1 + mouseArr[mouseID].offsetWidth;
+      var y2 = hollowArr[mouseID].offsetTop + hollowArr[mouseID].offsetHeight;
+
+
+      // console.log( y1,y2);
+      //碰撞检测
+      if(x > x1 && x < x2 && y > y1 && y < y2){
+          // console.log('888');
+          mouseArr[mouseID].src = './images/mouse2.png';
+
+          //打中加分 一次25分
+          getScores += 25;
+          score.innerHTML = getScores + '分';
+      }
+    })
+
+    var hollowArr = [];
+    var mouseArr = [];
+    var mouseID = 0;
+    for( var i = 0; i < 9; i++){
+      hollowArr[i] = document.getElementById('hollow' + (i + 1));
+      mouseArr[i] = hollowArr[i].getElementsByTagName('img')[0];
+    }
+
+    var mouseLoop = null;
+    var initTop = 102;
+    var nowTop = initTop;
+    var endTop = 0;
+    var loopTime = 15;
+    var waitTime = 0;
+    var waitMaxTime = 1000;
+
+    //每2秒产生一只老鼠
+    var timer1;
+    // timer1 = setInterval(allMose, 2000);
+
+    //随机老鼠出现
+    function allMouse () {
+     if(mouseLoop == null){
+      mouseID = parseInt(Math.random() * 9);
+      nowTop = initTop;
+      waitTime = 0; //初始化 等待时间 让它为0
+      mouseLoop = setInterval(mouseShow, loopTime);
+      mouseArr[mouseID].src = './images/mouse1.png';
+
+      // waitMaxTime = waitMaxTime - getScores; 这种模式太难
+      waitMaxTime = 1000 - getScores*4
+      // console.log(waitMaxTime)
+     }
+    }
+
+    function mouseShow(){
+      if(nowTop > endTop){
+        nowTop -= 4;
+      }
+      if(nowTop < endTop){
+        nowTop = endTop;
+      }
+      if(nowTop == endTop){
+        // nowTop =102;
+        if(waitTime < waitMaxTime){
+          waitTime += loopTime;
+        }
+        if(waitTime >= waitMaxTime){
+          nowTop = initTop;
+          clearInterval(mouseLoop);
+          mouseLoop = null;
+        }
+      }
+      // console.log(mouseID)
+      mouseArr[mouseID].style.top = nowTop + 'px';
+    }
+
+    //倒计时部分
+    //倒计时长 15s
+    var time = 15000;
+    var speed = parseInt(remBar.offsetWidth / (time/200));
+    var timer2;
+
+    // timer2 = setInterval(remBarChange,200);
+    function remBarChange () {
+      newWidth = remBar.offsetWidth - speed;
+      if (newWidth <= 20) {
+        remBar.style.backgroundColor = 'red';
+      }
+      if (newWidth < 0) {
+        newWidth = 0;
+      }
+      remBar.style.width = newWidth + 'px';
+
+      if (newWidth == 0) {
+        clearInterval(timer2);
+        clearInterval(timer1);
+        shade.style.display = 'block';
+        start.style.display = 'none';
+        oDiv.style.display = 'block';
+
+        oSpan.innerHTML = parseInt(score.innerHTML);
+
+        //解除锤子绑定 体验会好一些
+        hammer.src = '';
+      }
+    }
+
+
+
+    //总控
+    //重新加载 游戏结束点击shade才好使 否则无效
+    shade.onclick =function () {
+      if (newWidth == 0) { //
+        location.reload();
+      }
+    }
+
+    //开始 按钮  加载所有进程
+    start.onclick = function () {
+      shade.style.display = 'none';
+      start.style.display = 'none';
+      oDiv.style.display = 'none';
+
+      // if (newWidth != 0) { //初次 不刷新
+        //老鼠运动进程
+        timer1 = setInterval(allMouse, 2000);
+        //倒计时条 变化进程
+        timer2 = setInterval(remBarChange,200);
+        // } else {
+        //   location.reload();
+        // }
+    }
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!--[if lt IE 9]>
+      <script
+        type="text/javascript"
+        src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"
+      ></script>
+    <![endif]-->
+    <title>Document</title>
+    <style>
+      body,
+      a {
+        margin: 0;
+        text-decoration: none;
+        font-family: 'helvetica';
+        font-size: 14px;
+      }
+      #pagination {
+        position: relative;
+        top: 80vh;
+        text-align: center;
+      }
+      .pg-prev,
+      .pg-next,
+      .pg-item {
+        display: inline-block;
+        margin: 0 4px;
+        width: 36px;
+        height: 36px;
+        line-height: 36px;
+        color: #666;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        -webkit-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+      }
+      .pg-prev,
+      .pg-next {
+        width: auto;
+        padding: 0 20px;
+      }
+      .pg-item.current,
+      .pg-item:hover {
+        background: #5cbde7;
+        color: #fff;
+      }
+
+      #pagination .disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      #pagination .pg-pots {
+        border: 0;
+        background: none;
+        color: #666;
+        margin: 0;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 老师，ie打开不显示啊 ？ jQ用了低的1.11.3; css也处理了; 也加入了html5shiv-->
+    <div id="pagination"></div>
+
+    <script src="./jquery-1.11.3.min.js"></script>
+    <script src="./index.js"></script>
+    <script>
+      $('#pagination').paging({
+        pageCount: 89,
+        pageCurrent: 3,
+        callBack: function() {
+          if (this.pageCurrent == 1) {
+            alert(
+              '老师，ie打开不显示啊 ？ jQ用了低的1.11.3; css也处理了; 也加入了html5shiv.js'
+            )
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

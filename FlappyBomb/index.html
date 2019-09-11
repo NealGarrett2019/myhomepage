@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Progject_FlappyBird</title>
+    <style type="text/css">
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+     /*  #myCanvas {
+        border: 1px solid #000;
+      } */
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas"></canvas>
+
+    <script src="./js/Game.js"></script>
+    <script src="./js/Background.js"></script>
+    <script src="./js/Land.js"></script>
+    <script src="./js/Pipe.js"></script>
+    <script src="./js/Bird.js"></script>
+    <script src="./js/SceneManager.js"></script>
+    <script>
+      var game = new Game({
+        id: 'myCanvas',
+        RjsonUrl: './R.json'
+      })
+    </script>
+  </body>
+</html>

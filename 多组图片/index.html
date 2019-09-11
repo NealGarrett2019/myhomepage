@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>控制多组图片切换</title>
+    <style>
+      body,
+      h2 {
+        margin: 0;
+        padding: 0;
+      }
+      #main {
+        width: 873px;
+        height: 551px;
+        background: url(img/mainBg.png) no-repeat;
+        margin: 40px auto;
+      }
+      #left,
+      #right {
+        float: left;
+        position: relative;
+        height: 551px;
+      }
+      #left {
+        width: 530px;
+      }
+      #right {
+        width: 343px;
+      }
+      input {
+        width: 65px;
+        height: 20px;
+        line-height: 20px;
+        position: absolute;
+        top: 50px;
+        cursor: pointer;
+      }
+      #prev {
+        left: 23px;
+      }
+      #next {
+        left: 100px;
+      }
+      #left img {
+        width: 448px;
+        left: 50px;
+      }
+      #right img {
+        width: 248px;
+        right: 66px;
+      }
+      img {
+        height: 245px;
+        position: absolute;
+        top: 114px;
+        border: none;
+        vertical-align: top;
+        cursor: pointer;
+      }
+      h2 {
+        position: absolute;
+        top: 360px;
+        font-size: 14px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        width: 100%;
+      }
+      span {
+        position: absolute;
+        bottom: 140px;
+        width: 100px;
+        height: 30px;
+        font-size: 12px;
+      }
+      #left span {
+        left: 50px;
+      }
+      #right span {
+        left: 20px;
+      }
+    </style>
+    <script type="text/javascript">
+      window.onload = function() {
+        var aImg = document.getElementsByTagName('img')
+        var aH2 = document.getElementsByTagName('h2')
+        var aSpan = document.getElementsByTagName('span')
+        var aInput = document.getElementsByTagName('input')
+        var oBtnPrev = document.getElementById('prev')
+        var oBtnNext = document.getElementById('next')
+
+        var arrVar = [(num1 = 0), (num2 = 0)]
+        var arrUrl = [
+          ['img/1-1.png', 'img/1-2.png', 'img/1-3.png', 'img/1-4.png'],
+          ['img/2-1.png', 'img/2-2.png', 'img/2-3.png']
+        ]
+        var arrText = ['第一组', '第二组']
+
+        for (var i = 0; i < aImg.length; i++) {
+          aImg[i].index = i
+          function picNext() {
+            arrVar[this.index]++
+            if (arrVar[this.index] > arrUrl[this.index].length - 1) {
+              arrVar[this.index] = 0
+            }
+            aImg[this.index].src = arrUrl[this.index][arrVar[this.index]]
+            aH2[this.index].innerHTML =
+              arrText[this.index] + '第' + (arrVar[this.index] + 1) + '张'
+            aSpan[this.index].innerHTML =
+              arrVar[this.index] + 1 + '/' + arrUrl[this.index].length
+          }
+          aImg[i].onclick = picNext
+        }
+        oBtnNext.onclick = function() {
+          for (var i = 0; i < arrVar.length; i++) {
+            arrVar[i]++
+            if (arrVar[i] > arrUrl[i].length - 1) {
+              arrVar[i] = 0
+            }
+            aImg[i].src = arrUrl[i][arrVar[i]]
+            aH2[i].innerHTML = arrText[i] + '第' + (arrVar[i] + 1) + '张'
+            aSpan[i].innerHTML = arrVar[i] + 1 + '/' + arrUrl[i].length
+          }
+        }
+        oBtnPrev.onclick = function() {
+          for (var i = 0; i < arrVar.length; i++) {
+            arrVar[i]--
+            if (arrVar[i] < 0) {
+              arrVar[i] = arrUrl[i].length - 1
+            }
+            aImg[i].src = arrUrl[i][arrVar[i]]
+            aH2[i].innerHTML = arrText[i] + '第' + (arrVar[i] + 1) + '张'
+            aSpan[i].innerHTML = arrVar[i] + 1 + '/' + arrUrl[i].length
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="main">
+      <div id="left">
+        <input type="button" value="上一组" id="prev" />
+        <input type="button" value="下一组" id="next" />
+        <img src="img/1-1.png" />
+        <h2>第一组第1张</h2>
+        <span>1/4</span>
+      </div>
+      <div id="right">
+        <img src="img/2-1.png" />
+        <h2>第二组第1张</h2>
+        <span>1/3</span>
+      </div>
+    </div>
+  </body>
+</html>

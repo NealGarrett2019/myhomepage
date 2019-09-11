@@ -1,0 +1,76 @@
+/*初始化*/
+body,input {
+    margin: 0;
+    padding: 0
+}
+body {
+    background-image: url('../images/a0757.png');
+    background-position: center top;
+    background-size: 100%; 
+    /* background-repeat: round;  这里不好用*/
+}
+.wrapper {
+    position: absolute;
+    bottom:0;
+    width: 1075px;
+    height: 594px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background-image: url('../images/bg.png');
+    padding-top: 30px;
+    box-sizing: border-box;
+}
+.screen { 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 774px;
+    height: 490px;
+    margin: 0 auto; /*子元素的margin --块级格式化上下文 ---塌陷问题*/
+    overflow: hidden;        /*控制弹幕显示区只在视频上*/
+}
+.main {    
+    width: 100%;
+}
+.main video {  
+    width: 100%;
+}
+.barrage {
+    font-size: 0;
+    text-align: center;    
+}
+.barrage input {
+    width: 350px;
+    height: 30px;
+    border: 0;
+    border-radius: 10px 0 0 10px;
+    text-indent: 0.5em; /*对placeholder一样有效*/
+    outline: 0;
+}
+.barrage .send { /*button 本身即符合IE6混杂模式盒模型*/
+    width: 100px;
+    height: 30px;
+    font-size: 16px;
+    color: #fff;
+    background-color: orange;
+    border-radius: 0 10px 10px 0;
+    /* border: 0;消除按钮凸起效果 */
+    border-left: 0;
+    vertical-align: bottom;
+    outline: 0;
+}
+.main {
+    position: relative;
+}
+.main span {
+    position: absolute;
+    top: 0;
+    left: 774px;
+    color: red;
+    white-space: nowrap; /*消除bug：中文蹿行*/
+    text-shadow: -1px 0 #bbb,0 1px#bbb,1px 0 #bbb,0 -1px #bbb;
+}
+
